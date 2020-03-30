@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="{{ asset('asset/image/LIGHT.png') }}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('asset/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
@@ -18,10 +17,10 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('asset/dist/css/adminlte.min.css')}}">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="{{asset('asset/plugins/daterangepicker/daterangepicker.css')}}">'
+    <link rel="stylesheet" href="{{asset('asset/plugins/daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" href="{{asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <link rel="stylesheet"
-        href="{{asset('asset/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">'
+        href="{{asset('asset/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
     <link rel="stylesheet" href="{{asset('asset/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('asset/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('asset/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
@@ -85,7 +84,7 @@
 
                     <div class="docs-datepicker">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control docs-date" name="date" placeholder="Pick a date"
+                            <input type="text" class="form-control docs-date" name="date" placeholder="Date Of Birth"
                                 autocomplete="off">
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger"
@@ -94,16 +93,12 @@
                                 </button>
                             </div>
                         </div>
-
-
                     </div>
-
                     <div class="form-group">
-
                         <div class="input-group mb-3">
-
                             <input type="text" class="form-control"
-                                data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask>
+                                data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask
+                                placeholder="Phone Number">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                             </div>
@@ -211,9 +206,7 @@
                     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
                     'This Month': [moment().startOf('month'), moment().endOf('month')],
                     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
-                            'month')
-                        .endOf('month')
-                    ]
+                        'month').endOf('month')]
                 },
                 startDate: moment().subtract(29, 'days'),
                 endDate: moment()
