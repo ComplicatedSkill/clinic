@@ -14,7 +14,6 @@
                     <span class="input-group-append">
                         <button type="button" class="btn btn-info btn-flat mr-3"><i class="fas fa-search"></i></button>
                     </span>
-
                     <select class="custom-select" name="branch_id">
                         @foreach ($branchs as $branch)
                         <option value="{{$branch->branch_id}}">{{$branch->branch_name}}</option>
@@ -79,7 +78,7 @@
                                             <div class="form-group">
                                                 <label>Driver</label>
                                                 <select class="custom-select" name="staff_id">
-                                                    @foreach ($staffs as $staff)
+                                                    @foreach ($staffs ?? '' as $staff)
                                                     <option value="{{$staff->staff_id}}">{{$staff->staff_name_kh}}
                                                     </option>
                                                     @endforeach

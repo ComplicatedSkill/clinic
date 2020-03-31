@@ -21,7 +21,6 @@ class AmbulanceController extends Controller
         ->get();
 
         $staffs = DB::table('tbl_staff')->get();
-
         $branchs = DB::table('tbl_branch')->get();
         // dd($ambulances);
         return view('block.ambulance.ambulance-page', ['ambulances' => $ambulances, 'staffs' => $staffs , 'branchs' => $branchs]);

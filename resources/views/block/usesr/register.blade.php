@@ -27,22 +27,34 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-
-
-
 <body class="hold-transition register-page">
     <div class="register-box">
         <div class="register-logo">
-            <a href="#"><b>Clinic Management</b></a>
+            <a href="#"><b>Clinic Management System</b></a>
         </div>
-
         <div class="card">
+            @if(session('message'))
+                <div class="alert alert-success">
+                    {{session('message')}}
+                </div>
+            @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new account</p>
-
-                <form action="#" method="post">
+                <form role="form" id="createform" action="{{action('RegisterController@store')}}"
+                      method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('POST')
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username">
+                        <input type="text" class="form-control" placeholder="Username" name = "username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -50,7 +62,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="First Name">
+                        <input type="text" class="form-control" placeholder="First Name" name = "first_name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -58,7 +70,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Last Name">
+                        <input type="text" class="form-control" placeholder="Last Name"name = "last_name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -66,46 +78,39 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select id="inputState" class="form-control">
+                        <select id="inputState" class="form-control" name = "gender">
                             <option selected>Male</option>
                             <option>Famale</option>
                             <option>Others</option>
                         </select>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-genderless"></span>
+                            </div>
+                        </div>
                     </div>
-
-
                     <div class="docs-datepicker">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control docs-date" name="date" placeholder="Date Of Birth"
-                                autocomplete="off">
+                            <input type="text" name="dob" value="01-01-1980"  class="form-control"/>
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary docs-datepicker-trigger"
-                                    disabled>
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </button>
+                                <div class="input-group-text">
+                                    <span class="fas fa-calendar"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control"
+                            <input type="tel" class="form-control"
                                 data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask
-                                placeholder="Phone Number">
+                                placeholder="Phone Number" name = "tel">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                             </div>
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" placeholder="Email" name = "email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -113,7 +118,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" class="form-control" placeholder="Password" name ="user_password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -121,35 +126,67 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Retype password">
+                        <input type="password" class="form-control" placeholder="Retype password" >
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <select class="custom-select" name="position_id" >
+                            @foreach ($positions as $position)
+                                <option value="{{$position->position_id}}">{{$position->position_name}}
+                                </option>
+                            @endforeach
+                        </select>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="custom-select" name="department_id">
+                            @foreach ($departments as $department)
+                                <option value="{{$department->department_id}}">{{$department->department_name}}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <select class="custom-select" name="branch_id">
+                            @foreach ($branchs as $branch)
+                                <option value="{{$branch->branch_id}}">{{$branch->branch_name}}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        </select>
+
+                    </div>
+
+
                         <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
                         </div>
                         <!-- /.col -->
-                    </div>
+
+
+
                 </form>
 
-                <a href="#" class="text-center">I already have a account</a>
+                <a href="#" class="text-center" style="float: right">I already have a account</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->
     </div>
+
+
+
+
+
     <!-- /.register-box -->
 
     <!-- jQuery -->
@@ -169,71 +206,22 @@
     <script src="{{asset('asset/plugins/js/datepicker.en-US.js')}}"></script>
     <script src="{{asset('asset/plugins/js/datepicker.km-KH.js')}}"></script>
     <script src="{{asset('asset/plugins/js/main.js')}}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script>
-    $(function() {
-        //Initialize Select2 Elements
-        $('.select2').select2({
-            theme: 'bootstrap4'
-        })
-
-        //Datemask dd/mm/yyyy
-        $('#datemask').inputmask('dd/mm/yyyy', {
-            'placeholder': 'dd/mm/yyyy'
-        })
-        //Datemask2 mm/dd/yyyy
-        $('#datemask2').inputmask('mm/dd/yyyy', {
-            'placeholder': 'mm/dd/yyyy'
-        })
-        //Money Euro
-        $('[data-mask]').inputmask()
-
-        //Date range picker
-        $('#reservation').daterangepicker()
-        //Date range picker with time picker
-        $('#reservationtime').daterangepicker({
-            timePicker: true,
-            timePickerIncrement: 30,
-            locale: {
-                format: 'MM/DD/YYYY hh:mm A'
-            }
-        })
-        //Date range as a button
-        $('#daterange-btn').daterangepicker({
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
-                        'month').endOf('month')]
-                },
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment()
-            },
-            function(start, end) {
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                    'MMMM D, YYYY'))
-            }
-        )
-
-        //Timepicker
-        $('#timepicker').datetimepicker({
-            format: 'LT'
-        })
-
-        //Bootstrap Duallistbox
-        $('.duallistbox').bootstrapDualListbox()
-
-        //Colorpicker
-        $('.my-colorpicker1').colorpicker()
-        //color picker with addon
-        $('.my-colorpicker2').colorpicker()
-
-        $('.my-colorpicker2').on('colorpickerChange', function(event) {
-            $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+        $(function() {
+            $('input[name="dob"]').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 1901,
+                maxYear: parseInt(moment().format('YYYY'),10)
+            }, function(start, end, label) {
+                var years = moment().diff(start, 'years');
+                alert("You are " + years + " years old!");
+            });
         });
-    })
     </script>
 </body>
 
