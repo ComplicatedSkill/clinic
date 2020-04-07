@@ -20,3 +20,4 @@ Route::resource('User','UserController');
 Route::resource('/ambulance', 'AmbulanceController');
 Route::resource('/register','RegisterController');
 Route::resource('/Department','DepartmentController');
+Route::resource('/Branch','BranchController');

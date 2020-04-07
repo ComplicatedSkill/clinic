@@ -210,9 +210,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{url('/User')}}" class="nav-link">
+                                    <a href="{{url('/Branch')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>User Info</p>
+                                        <p>Branch Info</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -222,9 +222,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{url('/User')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Department Manage</p>
+                                        <p>User Info</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
