@@ -9,21 +9,21 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('asset/plugins/fontawesome-free/css/all.min.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('asset/plugins/fontawesome-free/css/all.min.css')}}">--}}
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+{{--    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--}}
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">--}}
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('asset/dist/css/adminlte.min.css')}}">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="{{asset('asset/plugins/daterangepicker/daterangepicker.css')}}">
-    <link rel="stylesheet" href="{{asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-    <link rel="stylesheet"
-        href="{{asset('asset/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('asset/plugins/select2/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('asset/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('asset/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('asset/plugins/daterangepicker/daterangepicker.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('asset/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">--}}
+{{--    <link rel="stylesheet"--}}
+{{--        href="{{asset('asset/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('asset/plugins/select2/css/select2.min.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('asset/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('asset/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css')}}">--}}
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -49,8 +49,7 @@
                 @endif
             <div class="card-body register-card-body">
                 <p class="login-box-msg">Register a new account</p>
-                <form role="form" id="createform" action="{{action('RegisterController@store')}}"
-                      method="POST" enctype="multipart/form-data">
+                <form role="form" id="createform" action="{{action('RegisterController@store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     <div class="input-group mb-3">
@@ -148,11 +147,8 @@
                                 <option value="{{$department->department_id}}">{{$department->department_name}}
                                 </option>
                             @endforeach
-
                         </select>
-
                         </select>
-
                     </div>
                     <div class="form-group">
                         <select class="custom-select" name="branch_id">
@@ -161,55 +157,53 @@
                                 </option>
                             @endforeach
                         </select>
-
                         </select>
-
                     </div>
-
-
                         <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
                         </div>
                         <!-- /.col -->
-
-
-
                 </form>
-
-                <a href="#" class="text-center" style="float: right">I already have a account</a>
+                <a href="{{url('/')}}" class="text-center" style="float: right">I already have a account</a>
             </div>
             <!-- /.form-box -->
         </div><!-- /.card -->
     </div>
 
 
-
-
-
     <!-- /.register-box -->
 
     <!-- jQuery -->
-    <script src="{{asset('asset/plugins/jquery/jquery.min.js')}}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{asset('asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('asset/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{asset('asset/plugins/select2/js/select2.full.min.js')}}"></script>
-    <script src="{{asset('asset/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
-    <script src="{{asset('asset/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
-    <script src="{{asset('asset/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{asset('asset/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
-    <script src="{{asset('asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-    <script src="{{asset('asset/dist/js/adminlte.min.js')}}"></script>
-    <script src="{{asset('asset/dist/js/demo.js')}}"></script>
-    <script src="{{asset('asset/plugins/js/datepicker.js')}}"></script>
-    <script src="{{asset('asset/plugins/js/datepicker.en-US.js')}}"></script>
-    <script src="{{asset('asset/plugins/js/datepicker.km-KH.js')}}"></script>
-    <script src="{{asset('asset/plugins/js/main.js')}}"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+{{--    <script src="{{asset('asset/plugins/jquery/jquery.min.js')}}"></script>--}}
+{{--    <!-- Bootstrap 4 -->--}}
+{{--    <script src="{{asset('asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/select2/js/select2.full.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/select2/js/select2.full.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/moment/moment.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/dist/js/adminlte.min.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/dist/js/demo.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/js/datepicker.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/js/datepicker.en-US.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/js/datepicker.km-KH.js')}}"></script>--}}
+{{--    <script src="{{asset('asset/plugins/js/main.js')}}"></script>--}}
+{{--    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>--}}
+{{--    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>--}}
+{{--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>--}}
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{asset('asset/plugins/datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(function() {
             $('input[name="dob"]').daterangepicker({

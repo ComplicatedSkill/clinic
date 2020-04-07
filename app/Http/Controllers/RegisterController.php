@@ -46,11 +46,10 @@ class RegisterController extends Controller
          $register-> dob = $request->dob;
         $register-> tel = $request->tel;
         $register-> email = $request->email;
-        $register->status = '1';
+        $register->status = '0';
         $register->register_date = date('Y-m-d');
         $register->Save();
         $request->session()->flash('message','Admin need to approve first');
-        return back();
 
 //        $branch_id = $request->branch_id;
 //        $position_id = $request-> position_id;
@@ -85,5 +84,23 @@ class RegisterController extends Controller
 //            return redirect('login');
 //        }
 //        return back();
+    }
+
+    public function update(Request $request,$id){
+        $update = User::where('user_id',$id)->first();
+        echo (Hash::make($request-> old . '              '));
+        echo ($update->user_password. '             ');
+        if(bcrypt($request-> old) == $update->user_password){
+//            $update-> user_password =bcrypt($request->user_password);
+//            $update->save();
+//            $request->session()->flash('message','Password has been changed Successfully');
+//            return redirect()->back();
+            echo 'True';
+        }
+        else{
+//            $request->session()->flash('message','Current password is incorrect');
+//            return redirect()->back();
+            echo ('False');
+        }
     }
 }

@@ -37,6 +37,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    protected $primaryKey = 'user_id';
     protected $table = 'tbl_user';
+
+    public function positions(){
+        return $this->belongsTo('App\position','position_id','position_id');
+    }
+
+    public function branchs(){
+        return $this->belongsTo('App\branch','branch_id','branch_id');
+    }
+
+    public function departments(){
+        return $this->belongsTo('App\department','department_id','department_id');
+    }
 }

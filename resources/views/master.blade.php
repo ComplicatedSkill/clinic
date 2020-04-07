@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('asset/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+{{--    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--}}
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet"
         href="{{asset('asset/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{asset('asset/plugins/summernote/summernote-bs4.css')}}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <meta name="csrf-token" content="{{csrf_token()}}"/>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -176,11 +177,11 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{asset('asset/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2"
+                        <img src="{{asset('asset/dist/img/boss.png')}}" class="img-circle elevation-2"
                             alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">Sokheng Ich</a>
                     </div>
                 </div>
 
@@ -209,13 +210,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{url('/User')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>User Info</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{url('/Department')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Department Info</p>
                                     </a>
@@ -687,7 +688,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">@yield('page-title')</h1>
+                            <h1 class="card-title">@yield('page-title')</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -722,11 +723,11 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
+    <script src="{{asset('asset/jquery-3.4.1.min.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <!-- jQuery -->
-    <script src="{{asset('asset/plugins/jquery/jquery.min.js')}}"></script>
+{{--    <script src="{{asset('asset/plugins/jquery/jquery.min.js')}}"></script>--}}
     <!-- jQuery UI 1.11.4 -->
     <script src="{{asset('asset/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -760,8 +761,13 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{asset('asset/dist/js/demo.js')}}"></script>
     <!-- DataTables -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{asset('asset/plugins/datatables/jquery.dataTables.js')}}"></script>
     <script src="{{asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- AdminLTE App -->
 </body>
 
