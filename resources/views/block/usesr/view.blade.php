@@ -1,7 +1,7 @@
 @extends('master')
 @section('title', 'User')
 @section('page-title', 'USER')
-@section('page-subtitle', 'Dashboard')
+@section('page-subtitle') <a href=" {{url('/home')}}">Dashboard</a>@endsection
 @section('subtitle', 'User')
 @section('content')
     <div class="row">

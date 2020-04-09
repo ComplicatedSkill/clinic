@@ -210,12 +210,6 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{url('/Branch')}}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Branch Info</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{url('/Department')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Department Info</p>
@@ -648,9 +642,9 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{url('/Branch')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Branch Information</p>
+                                        <p>Branch Info</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -692,7 +686,7 @@
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">@yield('page-subtitle')</a></li>
+                                <li class="breadcrumb-item">@yield('page-subtitle')</li>
                                 <li class="breadcrumb-item active">@yield('subtitle')</li>
                             </ol>
                         </div><!-- /.col -->

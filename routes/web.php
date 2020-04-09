@@ -21,3 +21,5 @@ Route::resource('/ambulance', 'AmbulanceController');
 Route::resource('/register','RegisterController');
 Route::resource('/Department','DepartmentController');
 Route::resource('/Branch','BranchController');
+Route::resource('/permission','PermissionController');
+Route::resource('/schedule','ScheduleController');

@@ -71,9 +71,6 @@ class UserController extends Controller
         $user-> dob = $request->dob;
         $user-> tel = $request->tel;
         $user-> email = $request->email;
-        $user-> hire_date = $request->hire_date;
-        $user-> basic_salary = $request->basic_salary;
-        $user-> address = $request->address;
         $user-> description = $request-> description;
         $user-> photo = $profile;
         $user->status = $status;
@@ -142,9 +139,6 @@ class UserController extends Controller
         $update-> dob = $request->dob;
         $update-> tel = $request->tel;
         $update-> email = $request->email;
-        $update-> hire_date = $request->hire_date;
-        $update-> basic_salary = $request->basic_salary;
-        $update-> address = $request->address;
         $update-> description = $request-> description;
         $update-> photo = $profile;
         $update->status = $status;

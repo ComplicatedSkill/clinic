@@ -50,7 +50,7 @@ class RegisterController extends Controller
         $register->register_date = date('Y-m-d');
         $register->Save();
         $request->session()->flash('message','Admin need to approve first');
-
+        return back();
 //        $branch_id = $request->branch_id;
 //        $position_id = $request-> position_id;
 //        $department_id = $request -> department_id;
@@ -83,7 +83,7 @@ class RegisterController extends Controller
 //        if($success){
 //            return redirect('login');
 //        }
-//        return back();
+//
     }
 
     public function update(Request $request,$id){

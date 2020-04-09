@@ -1,8 +1,8 @@
 @extends('master')
 @section('title', 'User')
-@section('page-title', 'Edit User')
-@section('page-subtitle', 'Dashboard')
-@section('subtitle', 'Edit User')
+@section('page-title', isset($users)?'Edit User':'Create User')
+@section('page-subtitle') <a href=" {{url('User')}}">User</a>@endsection
+@section('subtitle',isset($users)?'Edit User':'Create User')
 @section('content')
     @if(session('message'))
         @if(session('message') == 'Current password is incorrect')
@@ -26,58 +26,61 @@
     @endif
     <div class="col-md-12">
         @if(isset($users))
-        <button type="button" class="btn btn-warning btn-flat"  data-toggle="modal" data-target="#modal-default" style="margin-bottom: -30px" ></i>Change Password</button>
+            <a href="{{ route('permission.edit',$users->user_id) }}" class="btn btn-warning btn-flat" style="margin-bottom: -30px">Set Permission</a>
+            <a href="{{ route('schedule.edit',$users->user_id) }}" class="btn btn-warning btn-flat" style="margin-bottom: -30px">Set Schedule</a>
+            <button type="button" class="btn btn-warning btn-flat"  data-toggle="modal" data-target="#modal-default" style="margin-bottom: -30px" ></i>Change Password</button>
+
         <!-- general form elements disabled -->
         @endif
         <div class="card-body">
-            <table id="example2" class="table table-bordered table-hover">
-                {{-- Modal Create Form --}}
-                <div class="modal fade" id="modal-default">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Change Password</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form role="form" id="createform" action="{{action('RegisterController@store')}}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <!-- text input -->
-                                                <div class="form-group">
-                                                    <label for="currentpassword">Current Password</label>
-                                                    <input type="password" class="form-control" placeholder="Current Password" id="old" name="old">
+                <table id="example2" class="table table-bordered table-hover">
+                    {{-- Modal Create Form --}}
+                    <div class="modal fade" id="modal-default">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Change Password</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form role="form" id="createform" action="{{action('RegisterController@store')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label for="currentpassword">Current Password</label>
+                                                        <input type="password" class="form-control" placeholder="Current Password" id="old" name="old">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label for="newpassword">New Password</label>
+                                                        <input type="password" class="form-control" placeholder="New Password" id="user_password" name="user_password">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <!-- text input -->
-                                                <div class="form-group">
-                                                    <label for="newpassword">New Password</label>
-                                                    <input type="password" class="form-control" placeholder="New Password" id="user_password" name="user_password">
-                                                </div>
-                                            </div>
+                                            <!-- /.card-body -->
+                                            <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Close</button>
+                                            <button type="submit" id="cmd_submit"
+                                                    class="btn btn-primary float-right">Save
+                                                changes</button>
                                         </div>
-                                        <!-- /.card-body -->
-                                        <button type="button" class="btn btn-default"
-                                                data-dismiss="modal">Close</button>
-                                        <button type="submit" id="cmd_submit"
-                                                class="btn btn-primary float-right">Save
-                                            changes</button>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
+                            <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-content -->
+                        <!-- /.modal-dialog -->
                     </div>
-                    <!-- /.modal-dialog -->
-                </div>
-            </table>
-        </div>
+                </table>
+            </div>
         <div class="card card-blue">
             <div class="card-header">
                 <h3 class="card-title">User Information</h3>
@@ -200,35 +203,15 @@
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
-                                <label for="salary">Basic Salary</label>
-                                <input type="number" class="form-control" placeholder="Basic Salary" id="salary" value="{{isset($users)?$users->basic_salary:''}}" name="basic_salary">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <!-- text input -->
-                            <div class="form-group">
                                 <label for="dob">Date of birth</label>
                                 <input type="text" name="dob"  value="{{isset($users)?$users->dob:''}}" class="form-control" id="dob" />
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label for="hire_date">Hire Date</label>
-                                <input type="text" name="hire_date"  value="{{isset($users)?$users->hire_date:''}}" class="form-control" id="hire_date"/>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <!-- text input -->
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <textarea class="form-control" rows="5" placeholder="Address" id="address" name="address">{{isset($users)?$users->address:''}}</textarea>
-                            </div>
-                        </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
@@ -236,8 +219,6 @@
                                 <textarea class="form-control" rows="5" placeholder="Description" id="description" name="description">{{isset($users)?$users->description:''}}</textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
@@ -248,30 +229,27 @@
                                                 @if(isset($users))
                                                 @if($users -> positions -> position_id == $position -> position_id)
                                                 selected
-                                                @endif
+                                            @endif
                                             @endif
                                         >{{$position->position_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <!-- text input -->
                             <div class="form-group">
                                 <label for="department">Department</label>
                                 <select class="custom-select" name="department_id" id="department">
                                     @foreach ($departments as $department)
                                         <option value="{{$department->department_id}}"
                                                 @if(isset($users))
-                                        @if($users -> departments -> department_id == $department->department_id)
-                                            selected
-                                        @endif
+                                                @if($users -> departments -> department_id == $department->department_id)
+                                                selected
+                                            @endif
                                             @endif
                                         >{{$department->department_name}}</option>
                                     @endforeach
                                 </select>
-                            </div>
                         </div>
+                    </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="branch_id">Branch</label>

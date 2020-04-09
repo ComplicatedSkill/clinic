@@ -1,7 +1,7 @@
 @extends('master')
 @section('title', 'Department')
 @section('page-title', 'Edit Department')
-@section('page-subtitle', 'Dashboard')
+@section('page-subtitle') <a href=" {{url('Department')}}">Department</a>@endsection
 @section('subtitle', 'Edit Department')
 @section('content')
     @if(session('message'))
