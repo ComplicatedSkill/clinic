@@ -51,55 +51,20 @@ class RegisterController extends Controller
         $register->Save();
         $request->session()->flash('message','Admin need to approve first');
         return back();
-//        $branch_id = $request->branch_id;
-//        $position_id = $request-> position_id;
-//        $department_id = $request -> department_id;
-//        $username = $request -> username;
-//        $user_password = $request -> user_password;
-//        $first_name = $request -> first_name;
-//        $last_name = $request -> last_name;
-//        $gender = $request -> gender;
-//        $dob = $request -> dob;
-//        $tel = $request -> tel;
-//        $email = $request -> email;
-//        $status = '1';
-//        $register_date = $request = date('Y-m-d');
-//        $success = DB::table('tbl_user')->insert([
-//            'branch_id' => $branch_id,
-//            'position_id' => $position_id,
-//            'department_id' => $department_id,
-//            'username' => $username,
-//            'user_password' => $user_password,
-//            'first_name' => $first_name,
-//            'last_name' => $last_name,
-//            'gender' => $gender,
-//            'dob' => $dob,
-//            'tel' => $tel,
-//            'status' => $status,
-//            'register_date' => $register_date,
-//            'email' => $email
-//
-//        ]);
-//        if($success){
-//            return redirect('login');
-//        }
-//
     }
 
     public function update(Request $request,$id){
         $update = User::where('user_id',$id)->first();
-        echo (Hash::make($request-> old . '              '));
-        echo ($update->user_password. '             ');
         if(bcrypt($request-> old) == $update->user_password){
-//            $update-> user_password =bcrypt($request->user_password);
-//            $update->save();
-//            $request->session()->flash('message','Password has been changed Successfully');
-//            return redirect()->back();
-            echo 'True';
+            $request->User()->fill([
+                'user_password' => Hash::make($request->newPassword)
+            ])->save();
+            $request->session()->flash('message','Your password has been changed');
+            return redirect()->back();
         }
         else{
-//            $request->session()->flash('message','Current password is incorrect');
-//            return redirect()->back();
+            $request->session()->flash('message','Current password is incorrect');
+            return redirect()->back();
             echo ('False');
         }
     }

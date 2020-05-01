@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/home', 'HomeController@index');
 //Route::get('/register', 'RegisterController@index');
-Route::get('/', 'LoginController@index');
 Route::resource('User','UserController');
 Route::resource('/ambulance', 'AmbulanceController');
 Route::resource('/register','RegisterController');
@@ -23,3 +22,4 @@ Route::resource('/Department','DepartmentController');
 Route::resource('/Branch','BranchController');
 Route::resource('/permission','PermissionController');
 Route::resource('/schedule','ScheduleController');
+Route::resource('/Pharmacy','PharmacyController');

@@ -11,6 +11,6 @@ class PermissionController extends Controller
     public function edit($id){
         $premissions = Permission::with('User')->where('user_id',$id)->pluck('sub_permission')->toArray();
         echo('');
-        //return view('block.permission.permission')->withpermissions($premissions);
+        return view('block.permission.permission')->withpermissions($premissions);
     }
 }

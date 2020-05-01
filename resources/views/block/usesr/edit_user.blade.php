@@ -45,7 +45,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form role="form" id="createform" action="{{action('RegisterController@store')}}" method="POST" enctype="multipart/form-data">
+                                    <form role="form" id="createform"  method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="card-body">
@@ -58,7 +58,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <!-- text input -->
                                                     <div class="form-group">
                                                         <label for="newpassword">New Password</label>
                                                         <input type="password" class="form-control" placeholder="New Password" id="user_password" name="user_password">
@@ -103,6 +102,8 @@
                                     @if($users->status == '1')
                                     checked
                                     @endif
+                                @else
+                                   checked
                                 @endif
                             >
                             <label class="custom-control-label" for="status">User Status (Blue = Enable)</label>
