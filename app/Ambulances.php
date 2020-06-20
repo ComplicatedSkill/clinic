@@ -3,11 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Ambulances extends Model
-{
-    public $incrementing = false;
+{  public $timestamps = false;
+    use Notifiable;
     protected $table = 'tbl_ambulance';
     protected $primaryKey = 'ambulance_id';
-    protected $fillable=['branch_id','ambulance_id','ambulance_name','license_plate','staff_id','status','user_create','date_create','user_update','date_update'];
+
+    public function staffs(){
+        return $this->belongsTo('App\Staff','staff_id','staff_id');
+    }
+
+    public function branchs(){
+        return $this->belongsTo('App\branch','branch_id', 'branch_id');
+    }
 }

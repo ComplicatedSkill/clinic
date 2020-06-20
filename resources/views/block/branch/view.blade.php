@@ -31,7 +31,7 @@
                         </button>
                         <button type="button" class="btn btn-primary btn-md"  data-toggle="modal" data-target="#modal-default" > <i class="fa fa-plus"></i> Create New</button>
                         <!-- general form elements disabled -->
-                        <div class="card-body">
+                        <div class="card-body"  style="margin-top: -50px">
                             <table id="example2" class="table table-bordered table-hover">
                                 {{-- Modal Create Form --}}
                                 <div class="modal fade" id="modal-default">
@@ -81,8 +81,8 @@
                                                             </div>
                                                         </div>
                                                         <!-- /.card-body -->
-                                                            <label for="logo" class="btn btn-outline-dark btn-block btn-flat">Choose Branch Logo</label>
-                                                            <input type="file"  id="logo" name="logo" style="display: none"/>
+                                                            <label for="image" class="btn btn-outline-dark btn-block btn-flat">Choose Branch Logo</label>
+                                                            <input type="file"  id="image" name="image" style="display: none"/>
                                                         <button type="button" class="btn btn-default"
                                                                 data-dismiss="modal">Close</button>
                                                         <button type="submit" id="cmd_submit"
@@ -135,33 +135,56 @@
             </div>
         </div>
     </div>
-    </scr>
+
+    <!-- page script -->
     <script>
         function  delete_user(id) {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: "{{url('Branch')}}/"+id,
-                            type: 'DELETE',
-                            data: {
-                                "_token": $('@csrf').val(),
-                            },
-                            success: function(result) {
-                                if(result.status==200){
-                                    window.location.href = "{{url('Branch')}}";
-                                }
-                            }
-                        });
-                    }
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "{{url('Branch')}}/" + id,
+                        type: 'DELETE',
+                        data: {
+                            "_token": $('@csrf').val(),
+                        },
+                        success: function (result) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                                .then((willDelete) => {
+                                    if (willDelete) {
+                                        if (result.status == 200) {
+                                            window.location.href = "{{url('Branch')}}";
+                                        }
+                                    }
+                                })
+                        }
+                    });
+                }
+            });
+            $(function () {
+                $("#example1").DataTable();
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
                 });
+            });
         }
     </script>
+
 @endsection
 

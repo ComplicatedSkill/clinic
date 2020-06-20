@@ -6,13 +6,13 @@
 @section('content')
     @if(session('message'))
         @if(session('message') == 'Current password is incorrect')
-            <div class="alert alert-danger">
+            <div class="alert alert-danger" >
                 {{session('message')}}
             </div>
         @else
-        <div class="alert alert-success">
-            {{session('message')}}
-        </div>
+            <div class="alert alert-success">
+                {{session('message')}}
+            </div>
         @endif
     @endif
     @if ($errors->any())
@@ -26,69 +26,79 @@
     @endif
     <div class="col-md-12">
         @if(isset($users))
-            <a href="{{ route('permission.edit',$users->user_id) }}" class="btn btn-warning btn-flat" style="margin-bottom: -30px">Set Permission</a>
-            <a href="{{ route('schedule.edit',$users->user_id) }}" class="btn btn-warning btn-flat" style="margin-bottom: -30px">Set Schedule</a>
-            <button type="button" class="btn btn-warning btn-flat"  data-toggle="modal" data-target="#modal-default" style="margin-bottom: -30px" ></i>Change Password</button>
+            <a href="{{ route('permission.edit',$users->user_id) }}" class="btn btn-warning btn-flat"
+               style="margin-bottom: -30px">Set Permission</a>
+            <button type="button" class="btn btn-warning btn-flat" data-toggle="modal" data-target="#modal-default"
+                    style="margin-bottom: -30px">Change Password
+            </button>
 
-        <!-- general form elements disabled -->
+            <!-- general form elements disabled -->
         @endif
         <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                    {{-- Modal Create Form --}}
-                    <div class="modal fade" id="modal-default">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Change Password</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form role="form" id="createform"  method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
-                                                        <label for="currentpassword">Current Password</label>
-                                                        <input type="password" class="form-control" placeholder="Current Password" id="old" name="old">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="newpassword">New Password</label>
-                                                        <input type="password" class="form-control" placeholder="New Password" id="user_password" name="user_password">
-                                                    </div>
+            <table id="example2" class="table table-bordered table-hover">
+                {{-- Modal Create Form --}}
+                <div class="modal fade" id="modal-default">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Change Password</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="{{isset($users)?action('ChangePasswordController@update',$users->user_id):action('UserController@store')}}"
+                                      method="POST" enctype="multipart/form-data" autocomplete="off">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <!-- text input -->
+                                                <div class="form-group">
+                                                    <label for="current_password">Current Password</label>
+                                                    <input type="password" class="form-control"
+                                                           placeholder="Current Password" id="current_password" name="current_password">
                                                 </div>
                                             </div>
-                                            <!-- /.card-body -->
-                                            <button type="button" class="btn btn-default"
-                                                    data-dismiss="modal">Close</button>
-                                            <button type="submit" id="cmd_submit"
-                                                    class="btn btn-primary float-right">Save
-                                                changes</button>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="new_password">New Password</label>
+                                                    <input type="password" class="form-control"
+                                                           placeholder="New Password" id="new_password"
+                                                           name="new_password">
+                                                </div>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
+                                        <!-- /.card-body -->
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" id="cmd_submit"
+                                                class="btn btn-primary float-right">Save
+                                            changes
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-dialog -->
+                        <!-- /.modal-content -->
                     </div>
-                </table>
-            </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            </table>
+        </div>
         <div class="card card-blue">
             <div class="card-header">
                 <h3 class="card-title">User Information</h3>
             </div>
             <!-- /.card-header -->
             @if(isset($users))
-                @endif
+            @endif
             <div class="card-body">
-                <form role="form" action="{{ isset($users)?action('UserController@update',$users->user_id):action('UserController@store')  }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                <form role="form"
+                      action="{{ isset($users)?action('UserController@update',$users->user_id):action('UserController@store')  }}"
+                      method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     @if(isset($users))
                         @method('PUT')
@@ -99,10 +109,10 @@
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="status" name="status"
                                    @if(isset($users))
-                                    @if($users->status == '1')
-                                    checked
-                                    @endif
-                                @else
+                                   @if($users->status == '1')
+                                   checked
+                                   @endif
+                                   @else
                                    checked
                                 @endif
                             >
@@ -115,10 +125,12 @@
                             <div class="form-group">
                                 @if(isset($users))
                                     <label for="user_id">User ID</label>
-                                    <input type="text" value="{{$users->user_id}}" class="form-control" placeholder="user_id" id="user_id" name="user_id"disabled>
+                                    <input type="text" value="{{$users->user_id}}" class="form-control"
+                                           placeholder="user_id" id="user_id" name="user_id" disabled>
                                 @else
                                     <label for="username">User Name</label>
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="Username" id="username" name="username">
+                                    <input type="text" autocomplete="off" class="form-control" placeholder="Username"
+                                           id="username" name="username">
                                 @endif
                             </div>
                         </div>
@@ -127,10 +139,12 @@
                             <div class="form-group">
                                 @if(isset($users))
                                     <label for="user_name">User Name</label>
-                                    <input type="text" value="{{$users->username}}" class="form-control" placeholder="Username" name="username" id="username">
+                                    <input type="text" value="{{$users->username}}" class="form-control"
+                                           placeholder="Username" name="username" id="username">
                                 @else
                                     <label for="user_password">Password</label>
-                                    <input type="password"  autocomplete="off" class="form-control" placeholder="Password" name="user_password" id="user_password">
+                                    <input type="password" autocomplete="off" class="form-control"
+                                           placeholder="Password" name="user_password" id="user_password">
                                 @endif
                             </div>
                         </div>
@@ -140,14 +154,16 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="first_name">First Name</label>
-                                <input type="text" value="{{isset($users)?$users->first_name:''}}" class="form-control" placeholder="First Name" id="first_name" name="first_name">
+                                <input type="text" value="{{isset($users)?$users->first_name:''}}" class="form-control"
+                                       placeholder="First Name" id="first_name" name="first_name">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="last_name">Last Name</label>
-                                <input type="text"  value="{{isset($users)?$users->last_name:''}}" class="form-control" placeholder="First Name" id="last_name" name="last_name">
+                                <input type="text" value="{{isset($users)?$users->last_name:''}}" class="form-control"
+                                       placeholder="First Name" id="last_name" name="last_name">
                             </div>
                         </div>
                     </div>
@@ -156,14 +172,16 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email"  value="{{isset($users)?$users->email:''}}" class="form-control" placeholder="Email" id="email" name="email">
+                                <input type="email" value="{{isset($users)?$users->email:''}}" class="form-control"
+                                       placeholder="Email" id="email" name="email">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="tel">Phone Number</label>
-                                <input type="text" class="form-control"  value="{{isset($users)?$users->tel:''}}" placeholder="Phone Number" id="tel" name="tel">
+                                <input type="text" class="form-control" value="{{isset($users)?$users->tel:''}}"
+                                       placeholder="Phone Number" id="tel" name="tel">
                             </div>
                         </div>
                     </div>
@@ -172,32 +190,36 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="gender">Gender</label>
-                                <select id="inputState" class="form-control" name = "gender" >
+                                <select id="inputState" class="form-control" name="gender">
                                     <option
                                         @if(isset($users))
-                                            @if($users ->gender == 'Male')
-                                                selected
-                                            @endif
+                                        @if($users ->gender == 'Male')
+                                        selected
                                         @endif
-                                    >Male</option>
+                                        @endif
+                                    >Male
+                                    </option>
                                     <option
                                         @if(isset($users))
                                         @if($users ->gender == 'Female')
                                         selected
                                         @endif
-                                        @endif>Female</option>
+                                        @endif>Female
+                                    </option>
                                     <option
                                         @if(isset($users))
                                         @if($users ->gender == 'Others')
                                         selected
                                         @endif
-                                        @endif>Others</option>
+                                        @endif>Others
+                                    </option>
                                     <option
                                         @if(isset($users))
                                         @if($users ->gender == 'Rather not to tell')
                                         selected
                                         @endif
-                                        @endif>Rather not to tell</option>
+                                        @endif>Rather not to tell
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -205,7 +227,8 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="dob">Date of birth</label>
-                                <input type="text" name="dob"  value="{{isset($users)?$users->dob:''}}" class="form-control" id="dob" />
+                                <input type="text" name="dob" value="{{isset($users)?$users->dob:''}}"
+                                       class="form-control" id="dob"/>
                             </div>
                         </div>
                     </div>
@@ -217,14 +240,15 @@
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea class="form-control" rows="5" placeholder="Description" id="description" name="description">{{isset($users)?$users->description:''}}</textarea>
+                                <textarea class="form-control" rows="5" placeholder="Description" id="description"
+                                          name="description">{{isset($users)?$users->description:''}}</textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <!-- text input -->
                             <div class="form-group">
                                 <label for="position">Position</label>
-                                <select class="custom-select" name="position_id" >
+                                <select class="custom-select" name="position_id">
                                     @foreach ($positions as $position)
                                         <option value="{{$position -> position_id}}"
                                                 @if(isset($users))
@@ -249,8 +273,8 @@
                                         >{{$department->department_name}}</option>
                                     @endforeach
                                 </select>
+                            </div>
                         </div>
-                    </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="branch_id">Branch</label>
@@ -267,7 +291,8 @@
                                 </select>
                             </div>
                         </div>
-                        </div>
+
+                    </div>
                     <div class="col-2" style="float: right">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">
                             @if(isset($users))
@@ -277,32 +302,20 @@
                             @endif
                         </button>
                     </div>
-                    <div class="col-2">
-                        <label for="image" class="btn btn-outline-dark btn-block btn-flat">Choose Profile Picture</label>
-                        <input type="file"  id="image" name="image" style="display: none"/>
-                    </div>
-
                 </form>
             </div>
             <!-- /.card-body -->
         </div>
         <!-- /.card -->
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="{{asset('asset/plugins/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        $(function() {
+        $(function () {
             $('input[name="dob"]').daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'),10)
-            }, function(start, end, label) {
+                maxYear: parseInt(moment().format('YYYY'), 10)
+            }, function (start, end, label) {
                 var years = moment().diff(start, 'years');
                 alert("You are " + years + " years old!");
             });

@@ -1,6 +1,6 @@
 @extends('master')
 @section('title', 'User')
-@section('page-title', 'USER')
+@section('page-title', 'User Information')
 @section('page-subtitle') <a href=" {{url('/home')}}">Dashboard</a>@endsection
 @section('subtitle', 'User')
 @section('content')
@@ -8,30 +8,48 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    @if ($message = Session::get('success'))
+                    @if(session('message'))
                         <div class="alert alert-success">
-                            <p>{{ $message }}</p>
+                            {{session('message')}}
                         </div>
                 @endif
-                    <!-- /input-group -->
-                    <div class="input-group mb-3 w-50 float-left">
-                        <input type="text" class="form-control rounded-0" placeholder="Search" aria-label="Search">
-                        <span class="input-group-append">
-                        <button type="button" class="btn btn-info btn-flat mr-3"><i class="fas fa-search"></i></button>
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                    @endif
+
+                <!-- /input-group -->
+                    <form action="/search_user" method="get">
+                        <div class="input-group mb-3 w-50 float-left">
+
+                            <input type="text" class="form-control rounded-0" name="search" id="search"
+                                   placeholder="Search"
+                                   aria-label="search">
+                            <span class="input-group-append">
+                        <button type="submit" class="btn btn-info btn-flat mr-3"><i class="fas fa-search"></i></button>
                     </span>
-                        <select class="custom-select" name="branch_id">
-                            @foreach ($branchs as $branch)
-                                <option value="{{$branch->branch_id}}">{{$branch->branch_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3 float-right">
-                        <button type="button" class="btn btn-primary btn-md"
-                                onclick="window.location='{{ url('/User')}}'">
-                            <i class="fa fa-sync-alt"></i> Refresh
-                        </button>
-                        <a href="{{ route('User.create') }}" class="btn btn-primary btn-md" ><i class="fa fa-edit">Create User</i></a>
-                    </div>
+
+                            <select class="custom-select" name="branch_id">
+                                @foreach ($branchs as $branch)
+                                    <option value="{{$branch->branch_id}}">{{$branch->branch_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 float-right">
+                            <button type="button" class="btn btn-primary btn-md"
+                                    onclick="window.location='{{ url('/User')}}'">
+                                <i class="fa fa-sync-alt"></i> Refresh
+                            </button>
+                            <a href="{{ route('User.create') }}" class="btn btn-primary btn-md"><i class="fa fa-plus">
+                                    Create
+                                    User</i></a>
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <table id="example2" class="table table-bordered table-hover">
@@ -53,7 +71,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $no=1; ?>
+                        <?php $no = 1; ?>
                         @foreach ($users as $user)
                             <tr role="row" class="odd">
                                 <td>{{$no++}}</td>
@@ -73,8 +91,10 @@
                                     <td><span class="badge bg-danger">Disable</span></td>
                                 @endif
                                 <td>
-                                    <a href="{{ route('User.edit',$user->user_id) }}" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i></a>
-                                    <button type="button" class="btn btn-danger btn-sm btn_delete"  name="btnDelete" onclick="delete_user({{$user->user_id}})">
+                                    <a href="{{ route('User.edit',$user->user_id) }}" class="btn btn-primary btn-sm"> <i
+                                            class="fa fa-edit"></i></a>
+                                    <button type="button" class="btn btn-danger btn-sm btn_delete" name="btnDelete"
+                                            onclick="delete_user({{$user->user_id}})">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
@@ -86,58 +106,43 @@
             </div>
         </div>
     </div>
-</scr>
-    <script>
-        function  delete_user(id) {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
+    <script type="text/javascript">
+        function delete_user(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "{{url('User')}}/" + id,
+                        type: 'DELETE',
+                        data: {
+                            "_token": $('@csrf').val(),
+                        },
+                        success: function (result) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                                .then((willDelete) => {
+                                    if (willDelete) {
+                                        if (result.status == 200) {
+                                            window.location.href = "{{url('User')}}";
+                                        }
+                                    }
+                                })
+                        }
+                    });
+                }
             })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: "{{url('User')}}/"+id,
-                            type: 'DELETE',
-                            data: {
-                                "_token": $('@csrf').val(),
-                            },
-                            success: function(result) {
-                                if(result.status==200){
-                                    window.location.href = "{{url('User')}}";
-                                }
-                            }
-                        });
-                    }
-                });
         }
-        function  edit_user(id) {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: "{{url('User')}}/"+id,
-                            type: 'EDIT',
-                            data: {
-                                "_token": $('@csrf').val(),
-                            },
-                            success: function(result) {
-                                if(result.status==200){
-                                    window.location.href = "{{url('User')}}";
-                                }
-                            }
-                        });
-                    }
-                });
-        }
+
     </script>
 @endsection
 

@@ -34,8 +34,10 @@
                                 onclick="window.location='{{ url('/Department')}}'">
                             <i class="fa fa-sync-alt"></i> Refresh
                         </button>
-                        <button type="button" class="btn btn-primary btn-md"  data-toggle="modal" data-target="#modal-default" > <i class="fa fa-plus"></i> Create New</button>
-                            <!-- general form elements disabled -->
+                        <button type="button" class="btn btn-primary btn-md" data-toggle="modal"
+                                data-target="#modal-default"><i class="fa fa-plus"></i> Create New
+                        </button>
+                        <!-- general form elements disabled -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 {{-- Modal Create Form --}}
@@ -44,12 +46,15 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Create Department</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form role="form" id="createform" action="{{action('DepartmentController@store')}}" method="POST" enctype="multipart/form-data">
+                                                <form role="form" id="createform"
+                                                      action="{{action('DepartmentController@store')}}" method="POST"
+                                                      enctype="multipart/form-data">
                                                     @csrf
                                                     @method('POST')
                                                     <div class="card-body">
@@ -58,21 +63,28 @@
                                                                 <!-- text input -->
                                                                 <div class="form-group">
                                                                     <label for="department_name">Department Name</label>
-                                                                    <input type="text" class="form-control" placeholder="Department Name" id="department_name" name="department_name">
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Department Name"
+                                                                           id="department_name" name="department_name">
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-6">
                                                                 <!-- text input -->
                                                                 <div class="form-group">
-                                                                    <label for="department_description">Description</label>
-                                                                    <input type="text" class="form-control" placeholder="Description" id="department_description" name="department_description">
+                                                                    <label
+                                                                        for="department_description">Description</label>
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Description"
+                                                                           id="department_description"
+                                                                           name="department_description">
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12">
                                                                 <!-- text input -->
                                                                 <div class="form-group">
                                                                     <label for="department_description">Branch</label>
-                                                                    <select class="custom-select" name="branch_id" id="branch_id">
+                                                                    <select class="custom-select" name="branch_id"
+                                                                            id="branch_id">
                                                                         @foreach ($branchs as $branch)
                                                                             <option value="{{$branch->branch_id}}"
                                                                             >{{$branch->branch_name}}</option>
@@ -83,7 +95,8 @@
                                                         </div>
                                                         <!-- /.card-body -->
                                                         <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
+                                                                data-dismiss="modal">Close
+                                                        </button>
                                                         <button type="submit" id="cmd_submit"
                                                                 class="btn btn-primary float-right">Create New
                                                         </button>
@@ -111,7 +124,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $no=1; ?>
+                        <?php $no = 1; ?>
                         @foreach ($departments as $department)
                             <tr role="row" class="odd">
                                 <td>{{$no++}}</td>
@@ -119,8 +132,10 @@
                                 <td>{{$department->department_description}}</td>
                                 <td>{{$department -> branchs -> branch_name}}</td>
                                 <td>
-                                    <a href="{{ route('Department.edit',$department->department_id) }}" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i></a>
-                                    <button type="button" class="btn btn-danger btn-sm btn_delete"  name="btnDelete" onclick="delete_user({{$department->department_id}})">
+                                    <a href="{{ route('Department.edit',$department->department_id) }}"
+                                       class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i></a>
+                                    <button type="button" class="btn btn-danger btn-sm btn_delete" name="btnDelete"
+                                            onclick="delete_user({{$department->department_id}})">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
@@ -132,32 +147,41 @@
             </div>
         </div>
     </div>
-    </scr>
     <script>
-        function  delete_user(id) {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
+        function delete_user(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "{{url('Department')}}/" + id,
+                        type: 'DELETE',
+                        data: {
+                            "_token": $('@csrf').val(),
+                        },
+                        success: function (result) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                                .then((willDelete) => {
+                                    if (willDelete) {
+                                        if (result.status == 200) {
+                                            window.location.href = "{{url('Department')}}";
+                                        }
+                                    }
+                                })
+                        }
+                    });
+                }
             })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: "{{url('Department')}}/"+id,
-                            type: 'DELETE',
-                            data: {
-                                "_token": $('@csrf').val(),
-                            },
-                            success: function(result) {
-                                if(result.status==200){
-                                    window.location.href = "{{url('Department')}}";
-                                }
-                            }
-                        });
-                    }
-                });
         }
     </script>
 @endsection

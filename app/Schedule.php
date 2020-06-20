@@ -12,7 +12,8 @@ class Schedule extends Model
     protected $primaryKey = 'id';
     protected $table = 'tbl_schedule';
 
-    public function staff(){
+    
+    public function staffs(){
         return $this->hasOne('App\Staff','staff_id','staff_id');
     }
 }

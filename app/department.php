@@ -19,4 +19,8 @@ class department extends Model
     public function branchs(){
         return $this->belongsTo('App\branch','branch_id','branch_id');
     }
+
+    public function appointments(){
+        return $this->hasMany('App\Appointment');
+    }
 }

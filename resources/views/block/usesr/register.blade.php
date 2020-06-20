@@ -90,7 +90,7 @@
                     </div>
                     <div class="docs-datepicker">
                         <div class="input-group mb-3">
-                            <input type="text" name="dob" value="01-01-1980"  class="form-control"/>
+                            <input class="form-control" id="dob" name="dob" placeholder="Date Of Birth" type="text"/>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-calendar"></span>
@@ -139,7 +139,6 @@
                                 </option>
                             @endforeach
                         </select>
-                        </select>
                     </div>
                     <div class="form-group">
                         <select class="custom-select" name="department_id">
@@ -148,7 +147,6 @@
                                 </option>
                             @endforeach
                         </select>
-                        </select>
                     </div>
                     <div class="form-group">
                         <select class="custom-select" name="branch_id">
@@ -156,7 +154,6 @@
                                 <option value="{{$branch->branch_id}}">{{$branch->branch_name}}
                                 </option>
                             @endforeach
-                        </select>
                         </select>
                     </div>
                         <!-- /.col -->
@@ -171,51 +168,23 @@
         </div><!-- /.card -->
     </div>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-    <!-- /.register-box -->
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-    <!-- jQuery -->
-{{--    <script src="{{asset('asset/plugins/jquery/jquery.min.js')}}"></script>--}}
-{{--    <!-- Bootstrap 4 -->--}}
-{{--    <script src="{{asset('asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/select2/js/select2.full.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/select2/js/select2.full.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/moment/moment.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/dist/js/adminlte.min.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/dist/js/demo.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/js/datepicker.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/js/datepicker.en-US.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/js/datepicker.km-KH.js')}}"></script>--}}
-{{--    <script src="{{asset('asset/plugins/js/main.js')}}"></script>--}}
-{{--    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>--}}
-{{--    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>--}}
-{{--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>--}}
-
-
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="{{asset('asset/plugins/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('asset/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        $(function() {
-            $('input[name="dob"]').daterangepicker({
-                singleDatePicker: true,
-                showDropdowns: true,
-                minYear: 1901,
-                maxYear: parseInt(moment().format('YYYY'),10)
-            }, function(start, end, label) {
-                var years = moment().diff(start, 'years');
-                alert("You are " + years + " years old!");
-            });
-        });
+        $(document).ready(function(){
+            var date_input=$('input[name="dob"]'); //our date input has the name "date"
+            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: 'yyyy/mm/dd',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+        })
     </script>
 </body>
 

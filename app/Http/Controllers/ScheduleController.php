@@ -9,12 +9,30 @@ use Illuminate\Http\Request;
 class ScheduleController extends Controller
 {
     public function edit($id){
-        $id = 1;
-        $schedule = Schedule::with('Staff')->where('staff_id',$id)->first();
-        return view('block.staff.schedule',['schedule'=>$schedule]);
+        $schedule = Schedule::with('staffs')->where('staff_id',$id)->first();
+        if($schedule){
+            return view('block.staff.schedule',['schedule'=>$schedule]);
+        }
+        else{
+            $schedule = new Schedule();
+            $schedule->staff_id = $id;
+            $schedule->Save();
+            $schedule = Schedule::with('staffs')->where('staff_id',$id)->first();
+            return view('block.staff.schedule',['schedule'=>$schedule]);
+        }
+
+
     }
 
     public function update(Request $request, $id){
+
+        $request->validate([
+            'schedule_name' => 'required',
+            'morning_time_in' => 'date_format:H:i',
+            'morning_time_out' => 'date_format:H:i',
+            'everning_time_in' => 'date_format:H:i',
+            'everning_time_out' => 'date_format:H:i',
+        ]);
         $id =1;
         if( $request->status == false) {
             $status = '0';
